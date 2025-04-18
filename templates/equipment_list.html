@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="modal-grid">
+    {% for equipment in equipments %}
+      <div class="equipment-card">
+        <h5>{{ equipment.name }}</h5>
+        <p><strong>Serial:</strong> {{ equipment.serialNumber }}</p>
+        <p><strong>Quantity:</strong> {{ equipment.quantity }}</p>
+        {% if equipment.status == 'borrowed' %}
+          <p><strong>Borrower:</strong> {{ equipment.borrowerName }}</p>
+        {% endif %}
+        {% if equipment.status == 'available' %}
+          <svg class="barcode" id="barcode-{{ equipment.id }}"></svg>
+          <div class="quantity-control mt-2">
+            <input type="number" class="form-control form-control-sm" min="1" max="{{ equipment.quantity }}" value="1" id="qty-{{ equipment.id }}">
+            <button class="btn btn-sm btn-primary" onclick="addToCart('{{ equipment.id }}', '{{ equipment.name }}', '{{ equipment.serialNumber }}', document.getElementById('qty-{{ equipment.id }}').value)">
+              <i class="bi bi-cart-plus"></i> Add
+            </button>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
