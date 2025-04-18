@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h5><i class="bi bi-arrow-return-left me-1"></i>Return Equipment</h5>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+        <div class="mb-3">
+          <label class="form-label">NTID</label>
+          <input type="text" class="form-control" name="ntid" placeholder="Enter your NTID" required>
+        </div>
+        <div class="mb-3">
+          {% if borrowed_items %}
+            {% for item in borrowed_items %}
+              <div class="border rounded p-3 mb-3">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input return-item-checkbox" name="return_items" value="{{ item.id }}" id="return-{{ item.id }}">
+                  <label class="form-check-label" for="return-{{ item.id }}">
+                    <strong>{{ item.name }}</strong> (Serial: {{ item.serialNumber }})<br>
+                    <small>Borrowed: {{ item.checkoutDate }}</small><br>
+                    <small>Due: {{ item.expectedReturnDate }}</small>
+                  </label>
+                </div>
+                <div class="mt-2">
+                  <label class="form-label">Extend Return Date</label>
+                  <input type="date" class="form-control" name="extend_date_{{ item.id }}" min="{{ today }}">
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="alert alert-info">No borrowed items found</div>
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Return Notes (Optional)</label>
+          <textarea class="form-control" name="return_notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success w-100" {% if not borrowed_items %}disabled{% endif %}>
+          <i class="bi bi-check-circle me-1"></i>Return Selected Items
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
