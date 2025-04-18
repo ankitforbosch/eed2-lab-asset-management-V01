@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5><i class="bi bi-clock-history me-1"></i>History Log</h5>
+      <div class="d-flex gap-2">
+        <input type="text" class="form-control" id="historySearch" placeholder="Search history...">
+        <select class="form-select" id="historyFilter" style="width: 150px;">
+          <option value="all">All</option>
+          <option value="borrowed">Borrow</option>
+          <option value="returned">Return</option>
+          <option value="added">Add</option>
+        </select>
+      </div>
+    </div>
+    <div class="card-body history-log">
+      {% if history %}
+        {% for record in history %}
+          <div class="log-entry {{ record.action }}">
+            <div class="d-flex justify-content-between">
+              <div>
+                <strong>{{ record.userName }}</strong> {{ record.action }} <strong>{{ record.equipmentName }}</strong><br>
+                <small>Date: {{ record.date }}</small>
+              </div>
+              <span class="badge bg-{{ 'success' if record.action == 'returned' else 'primary' if record.action == 'borrowed' else 'info' }}">
+                {{ record.action | capitalize }}
+              </span>
+            </div>
+            {% if record.purpose %}
+              <p class="mt-1"><em>Purpose: {{ record.purpose }}</em></p>
+            {% endif %}
+            {% if record.notes %}
+              <p class="mt-1"><em>Notes: {{ record.notes }}</em></p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="alert alert-info">No history records found</div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
