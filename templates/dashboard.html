@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row g-3 mb-4">
+    <div class="col-md-4">
+      <div class="card text-white bg-success clickable-card" data-bs-toggle="modal" data-bs-target="#itemsModal" onclick="document.getElementById('searchInput').value='available'">
+        <div class="card-body text-center">
+          <h5><i class="bi bi-check-circle me-1"></i>Available</h5>
+          <h2 id="availableCount">{{ available_count }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-danger clickable-card" data-bs-toggle="modal" data-bs-target="#itemsModal" onclick="document.getElementById('searchInput').value='borrowed'">
+        <div class="card-body text-center">
+          <h5><i class="bi bi-box-seam me-1"></i>Borrowed</h5>
+          <h2 id="borrowedCount">{{ borrowed_count }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-warning clickable-card" data-bs-toggle="modal" data-bs-target="#itemsModal" onclick="document.getElementById('searchInput').value='maintenance'">
+        <div class="card-body text-center">
+          <h5><i class="bi bi-tools me-1"></i>Maintenance</h5>
+          <h2 id="maintenanceCount">{{ maintenance_count }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
