@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Add New Equipment</h2>
+  <form method="POST">
+    <div class="mb-3">
+      <label class="form-label">Equipment Name</label>
+      <input type="text" class="form-control" name="name" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Serial Number</label>
+      <input type="text" class="form-control" name="serial_number" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Quantity</label>
+      <input type="number" class="form-control" name="quantity" min="1" value="1" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">
+      <i class="bi bi-plus-lg me-1"></i>Add Equipment
+    </button>
+  </form>
+{% endblock %}
