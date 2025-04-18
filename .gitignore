@@ -1,0 +1,1 @@
+pycache/ *.pyc .env .firebase/ .firebaserc firebase.json.lock venv/ *.log
